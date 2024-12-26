@@ -1,0 +1,65 @@
+<div id=recv></div>
+<input id=mes><button id=btn>send</button>
+<p> </p>
+<div id="canvas"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+<script type="module">
+const address = "ws://localhost:8000/api/ws";
+const socket = new WebSocket(address);
+
+btn.onclick = () => {
+  socket.send(mes.value);
+};
+
+
+let positions = []
+let myPosition = {x:50,y:50}
+let myUid = ''
+const height = 800;
+const width = 800;
+const boxsize = 50;
+
+socket.onmessage = (msg) => {
+  const msgObj = JSON.parse(msg.data);
+  positions = msgObj.positions;
+  myUid = msgObj.me;
+}
+
+new p5(function(p) {
+
+p.setup = function() {  
+  p.createCanvas(width, height);
+};
+
+p.draw = function() {
+
+    p.background(32);
+    p.fill(255, 204, 0);
+  positions.forEach((pos)=>{
+    p.rect(pos.value.x, pos.value.y, boxsize,boxsize);
+  })
+};
+
+// Key events
+p.keyPressed = function(e){
+
+  if(e?.key === 'a' && myPosition.x >= boxsize  ){
+    myPosition.x -= boxsize;
+  }
+  if(e?.key === 'd' && myPosition.x < width - boxsize ){
+    myPosition.x += boxsize;
+  }
+  if(e?.key === 's' && myPosition.y < height - boxsize ){
+    myPosition.y += boxsize;
+  }
+  if(e?.key === 'w' && myPosition.y >= boxsize){
+    myPosition.y -= boxsize;
+  }
+  socket.send(JSON.stringify({uid:myUid,x:myPosition.x,y:myPosition.y}));
+}
+
+
+}, "canvas");
+
+</script>
