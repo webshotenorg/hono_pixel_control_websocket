@@ -1,5 +1,5 @@
+import { ChatUsers } from "@/chat/models/ChatUsers.ts";
 import { WSContext } from "https://deno.land/x/hono@v4.3.11/helper/websocket/index.ts";
-import { ChatUsers } from "../models/ChatUsers.ts";
 import { broadcast } from "./broadcast.ts";
 
 export const messageBroker = (

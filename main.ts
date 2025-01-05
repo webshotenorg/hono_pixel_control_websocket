@@ -1,8 +1,8 @@
-import { webSocketController } from "@/api/ws/controller.ts";
+import { webSocketController } from "@/chat/controller.ts";
+import { ChatUsers } from "@/chat/models/ChatUsers.ts";
 import { WSContext } from "https://deno.land/x/hono@v4.3.11/helper/websocket/index.ts";
 import { serveStatic } from "https://deno.land/x/hono@v4.3.11/middleware.ts";
 import { Hono } from "https://deno.land/x/hono@v4.3.11/mod.ts";
-import { ChatUsers } from "./src/api/ws/models/ChatUsers.ts";
 
 const app = new Hono();
 const apiApp = new Hono();

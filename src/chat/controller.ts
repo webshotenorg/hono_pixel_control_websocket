@@ -1,4 +1,4 @@
-import { ChatUsers } from "@/api/ws/models/ChatUsers.ts";
+import { ChatUsers } from "@/chat/models/ChatUsers.ts";
 import { upgradeWebSocket } from "https://deno.land/x/hono@v4.3.11/adapter/deno/websocket.ts";
 import { WSContext } from "https://deno.land/x/hono@v4.3.11/helper/websocket/index.ts";
 import { messageBroker } from "./business/messageBroker.ts";
