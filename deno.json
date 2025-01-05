@@ -3,6 +3,15 @@
     "dev": "deno run --watch main.ts"
   },
   "imports": {
-    "@std/assert": "jsr:@std/assert@1"
+    "@std/assert": "jsr:@std/assert@1",
+    "@/": "./src/"
+  },
+  "deploy": {
+    "project": "db85c17b-7838-4820-a006-453602a4c0e1",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [],
+    "entrypoint": "main.ts"
   }
 }

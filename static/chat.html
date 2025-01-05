@@ -1,0 +1,56 @@
+<html>
+<h1 id="title">chat</h1>
+
+<div id="name-div">
+<input id="name-form"><button id="nameBtn">名前を入力</button></input>
+</div>
+<p> </p>
+
+<div id="chat-form" class="hidden">
+<input id="mes"><button id="btn">メッセージ送信</button></input>
+<p> </p>
+</div>
+<div id=recv></div>
+</html>
+
+<style type="text/css">
+  .hidden {
+    display:none
+  }
+</style>
+
+<script type="module">
+nameBtn.addEventListener('click',function nameSubmit(){
+  const titleH1 = document.getElementById("title")
+
+  const nameForm = document.getElementById("name-form")
+
+  const chatForm = document.getElementById("chat-form")
+  chatForm.classList.remove("hidden")
+
+  const nameDiv = document.getElementById("name-div")
+  nameDiv.classList.add("hidden")
+
+  const hostName = location.hostname === 'localhost' ? `${location.hostname}:${location.port}` : location.hostname
+  const protocol = location.hostname === 'localhost' ? 'ws' : 'wss'
+  const address = `${protocol}://${hostName}/api/ws`
+  const socket = new WebSocket(address)
+
+  socket.onopen = () => {
+    socket.send(nameForm.value)
+    titleH1.textContent = `${nameForm.value}のchat`
+  }
+
+  socket.onmessage = (msg) => {
+    const data = JSON.parse(msg.data)
+    const div = document.createElement("div")
+    div.textContent = data.message.text
+    recv.prepend(div)
+  }
+
+  btn.onclick = () => {
+    socket.send(mes.value)
+  }
+})
+
+</script>
