@@ -13,8 +13,6 @@ apiApp.get("/test", (c) => c.json({ message: "Hello Hono!!!" }));
 apiApp.get("/ws", webSocketController(chatUsers));
 app.route("/api", apiApp);
 app.use("/favicon.ico", serveStatic({ path: "./favicon.ico" }));
-app.get("/about", serveStatic({ path: "./static/about.html" }));
-app.get("/chat", serveStatic({ path: "./static/chat.html" }));
 app.get("/", serveStatic({ path: "./static/index.html" }));
 
 Deno.serve(app.fetch);

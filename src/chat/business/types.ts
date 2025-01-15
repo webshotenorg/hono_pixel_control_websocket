@@ -1,11 +1,11 @@
 export type IMessage = {
-  uid: string;
+  name: string;
   text: string;
 };
 
 export type IExportMessage = {
   me: {
-    uid: string;
+    name: string;
   };
   message: IMessage;
 };

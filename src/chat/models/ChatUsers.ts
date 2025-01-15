@@ -1,29 +1,21 @@
-export type IChatUsers<T> = Map<string, T>;
-export type IChatNames = Map<string, string>;
+export type IChatNames<T> = Map<string, T>;
 
 export class ChatUsers<T> {
-  public loginUsers: IChatUsers<T>;
-  public names: IChatNames;
+  public users: IChatNames<T>;
 
   constructor() {
-    this.loginUsers = new Map<string, T>();
-    this.names = new Map<string, string>();
+    this.users = new Map<string, T>();
   }
 
-  loginUser(uid: string, ws: T) {
-    this.loginUsers.set(uid, ws);
+  setName(name: string, ws: T) {
+    this.users.set(name, ws);
   }
 
-  logoutUser(uid: string) {
-    this.loginUsers.delete(uid);
-    this.names.delete(uid);
+  getName(name: string) {
+    return this.users.get(name);
   }
 
-  setName(uid: string, name: string) {
-    this.names.set(uid, name);
-  }
-
-  getName(uid: string) {
-    return this.names.get(uid);
+  deleteName(name: string) {
+    this.users.delete(name);
   }
 }
